@@ -134,17 +134,41 @@ public class Parser {
 	}
 
 	private void eBool() throws SyntaxError, IOException {
-		/*if (token.getTag() == Tag.ID || token.getTag() == Tag.NUMBER || token.getTag() == Tag.STRING || token.getTag() == ((int) '(') ) {
+		if (token.getTag() == Tag.ID || token.getTag() == Tag.NUMBER || token.getTag() == Tag.STRING || token.getTag() == ((int) '(') ) {
 			expression();
+			if(token.getTag() == Tag.EQ) {
+				check(Tag.EQ);
+			}else if(token.getTag() == Tag.GEQ){
+				check(Tag.GEQ);
+			}else if(token.getTag() == Tag.LEQ){
+				check(Tag.LEQ);
+			}else if(token.getTag() == Tag.NEQ){
+				check(Tag.NEQ);
+			}else if(token.getTag() == ((int) '>')){
+				check((int) '>');
+			}else if(token.getTag() == ((int) '<')){
+				check((int) '<');
+			}
+			expression();
+			
+		}else if(token.getTag() == Tag.TRUE){
+			check(Tag.TRUE);
+		}else if(token.getTag() == Tag.FALSE){
+			check(Tag.FALSE);
 		}else {
 			throw new SyntaxError();
-		}*/
+		}
 		
 		
 	}
 
 	private void displayList() throws SyntaxError, IOException {
-		// TO DO
+		if(token.getTag() == Tag.ID || token.getTag() == Tag.NUMBER || token.getTag() == Tag.STRING) {
+			element();
+			elementSequence();
+		}else {
+			// do nothing
+		}
 	}
 
 	private void element() throws SyntaxError, IOException {
@@ -160,6 +184,15 @@ public class Parser {
 	}
 
 	private void elementSequence() throws SyntaxError, IOException {
-		// TO DO
+		if(token.getTag() == ((int) ',')) {
+			check((int) ',');
+			if(token.getTag() == Tag.ID || token.getTag() == Tag.NUMBER || token.getTag() == Tag.STRING) {
+				element();
+				elementSequence();
+			}
+			
+		}else {
+			// do nothing
+		}
 	}
 }
